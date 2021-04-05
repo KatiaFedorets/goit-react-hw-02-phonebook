@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import ContactList from "./components/ContactList/ContactList";
 import ContactForm from "./components/ContactForm/ContactForm";
 import Filter from "./components/Filter/Filter";
+import styles from "./App.module.css";
 
 import "normalize.css";
 
@@ -24,16 +25,24 @@ class App extends Component {
   };
 
   addContacts = data => {
-    const contact = {
-      id: uuidv4(),
-      name: data.name,
-      number: data.number
-    };
-    this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts]
-    }));
+    const searchSameName = this.state.contacts
+      .map(cont => cont.name)
+      .includes(data.name);
+    if (searchSameName) {
+      alert(`${data.name} is already in contacts`);
+    } else if (data.name.length === 0) {
+      alert("Fields must be filled!");
+    } else {
+      const contact = {
+        id: uuidv4(),
+        name: data.name,
+        number: data.number
+      };
 
-    console.log(data);
+      this.setState(({ contacts }) => ({
+        contacts: [contact, ...contacts]
+      }));
+    }
   };
 
   changeFilter = event => {
@@ -57,7 +66,7 @@ class App extends Component {
     const visibleContacts = this.getVisibleContacts();
 
     return (
-      <div>
+      <div className={styles.div}>
         <h2>Phonebook</h2>
         <ContactForm onSubmit={this.addContacts} />
         <h2>Contact</h2>

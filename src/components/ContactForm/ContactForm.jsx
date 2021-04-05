@@ -1,4 +1,6 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
+import styles from "./ContactForm.module.css";
 
 class ContactForm extends Component {
   state = {
@@ -30,8 +32,8 @@ class ContactForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
+      <form onSubmit={this.handleSubmit} className={styles.form}>
+        <label className={styles.label}>
           Name
           <input
             type="text"
@@ -40,23 +42,33 @@ class ContactForm extends Component {
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             required
             onChange={this.handelNameChange}
+            className={styles.input}
           />
         </label>
-        <label>
+        <label className={styles.label}>
           Number
           <input
             type="tel"
             name="number"
-            // pattern="(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})"
-            // title="Номер телефона должен состоять из 11-12 цифр и может содержать цифры, пробелы, тире, пузатые скобки и может начинаться с +"
-            // required
+            pattern="(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})"
+            title="Номер телефона должен состоять из 11-12 цифр и может содержать цифры, пробелы, тире, пузатые скобки и может начинаться с +"
+            required
             onChange={this.handelNameChange}
+            className={styles.input}
           />
         </label>
-        <button type="submit">Add contact</button>
+        <button type="submit" className={styles.button}>
+          Add contact
+        </button>
       </form>
     );
   }
 }
+
+ContactForm.propTypes = {
+  handelNameChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired
+};
 
 export default ContactForm;
