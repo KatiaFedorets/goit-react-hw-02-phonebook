@@ -80,10 +80,11 @@ class App extends Component {
       <div className={styles.div}>
         <h2>Phonebook</h2>
         <ContactForm onSubmit={this.addContacts} />
-        {contacts.length > 0 && <h2>Contact</h2>}
 
         {contacts.length > 0 && (
-          <Filter value={filter} onChange={this.changeFilter} />
+          <Filter value={filter} onChange={this.changeFilter}>
+            <h2>Contact</h2>
+          </Filter>
         )}
         <ContactList
           contacts={visibleContacts}
